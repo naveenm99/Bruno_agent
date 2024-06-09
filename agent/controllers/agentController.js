@@ -2,9 +2,8 @@ const Agent = require("../models/AgentModel");
 const mongoose = require("mongoose");
 
 exports.getData = async (req, res, next) => {
-
   try {
-    const result = await Agent.find()
+    const result = await Agent.find().sort({ timeStamp: -1 }).limit(36);
 
     res.status(200).json({ result });
   } catch (error) {
@@ -64,11 +63,9 @@ exports.insertMetricsToDB = async (metrics) => {
       timeStamp: metrics.timestamp,
     });
 
-
     const result = await metric.save();
 
     console.log("Metrics inserted into database", result);
-    
   } catch (error) {
     console.error("Failed to insert metrics into database", error);
   }
