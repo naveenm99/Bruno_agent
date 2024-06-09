@@ -58,9 +58,9 @@ exports.addNewData = async (req, res, next) => {
 exports.insertMetricsToDB = async (metrics) => {
   try {
     const metric = new Agent({
-      cpu:" metrics.cpu",
-      hdd: "metrics.disk",
-      ram: "metrics.memory",
+      cpu: metrics.cpu,
+      hdd: metrics.disk,
+      ram: metrics.memory,
       timeStamp: metrics.timestamp,
     });
 
