@@ -1,9 +1,10 @@
 #!/bin/bash
 
-MEMORY=$(free -m | awk 'NR==2{printf "Memory Usage: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }')
-DISK=$(df -h | awk '$NF=="/"{printf "Disk Usage: %d/%dGB (%s)\n", $3,$2,$5}')
-CPU=$(top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}')
+MEMORY=$(free -m | awk 'NR==2{printf "%.2f%%\n", $3*100/$2 }')
+DISK=$(df -h | awk '$NF=="/"{gsub("%",""); printf "%d%%\n", $5}')
+CPU=$(mpstat 1 1 | awk '/Average/ && $12 ~ /[0-9.]+/ { printf "%.2f%%\n", 100 - $12 }')
 
 echo "$MEMORY"
 echo "$DISK"
 echo "$CPU"
+

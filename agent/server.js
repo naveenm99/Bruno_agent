@@ -32,7 +32,7 @@ app.use("/api/v1/agent", agentRoutes);
  collectAndStoreMetrics();
 
 function collectAndStoreMetrics() {
-    exec('metrics.sh', (error, stdout, stderr) => {
+    exec('./metrics.sh', (error, stdout, stderr) => {
         if (error) {
             console.error(`Error executing script: ${error}`);
             return;
